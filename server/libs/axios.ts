@@ -19,7 +19,6 @@ instanceAxios.interceptors.response.use(function (response) {
 
 function generatorUrl(url: string, app: string) {
   if (!app) return url;
-
   if (url.indexOf('?') > -1) {
     return `${url}&app=${app}`
   }
@@ -52,7 +51,6 @@ export function get(req: Request, url: string, options: any = {}) {
 }
 
 export function post(req: Request, url: string, options: any = {}, type?: string) {
-
   type = type || 'form';
   const contentType = {
     'form': 'application/x-www-form-urlencoded',

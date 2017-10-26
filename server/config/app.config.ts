@@ -5,22 +5,17 @@ const common = {};
 
 const test = {
     port: '3000',
-    baseURL: 'http://localhost:8082',
-    cookieDomain: '.test.fyshuyuan.com',
+    baseURL: 'http://localhost:8081',
 };
 
 const pro = {
     port: '3000',
-    baseURL: 'http://localhost:8082',
-    debugUrl: 'http://localhost:8088',
-    cookieDomain: '.fyshuyuan.com',
+    baseURL: 'http://localhost:8081',
 };
 
 const local = {
     port: '1515',
-    baseURL: 'http://api.test.fyshuyuan.com/test',
-    debugUrl: 'http://120.77.144.1:8088',
-    cookieDomain: 'localhost',
+    baseURL: 'http://192.168.5.237:8081/api/',
 };
 
 let config;

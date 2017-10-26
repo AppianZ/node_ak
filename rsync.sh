@@ -2,33 +2,29 @@
 
 sshremote=root@39.108.218.145
 
-pro_multi="mulit_ak"
-pro_spa="spa_ak"
+multi_pro_name="mulit_ak"
+spa_pro_name="spa_ak"
 
-test_pre="/144-"
-prod_pre="/179-"
-base_path="/var/lib/jenkins/workspace"
+test_pre="/test_"
+prod_pre="/prod_"
+qa_pre="/qa_"
+base_path="/home/appian/workspace"
 
 env=$1
 project=$2
 
-path=""
-if [ $env == "prod" ] 
-then
-	path=$base_path$prod_pre
-else
-	path=$base_path$test_pre
-fi
-
+path=$base_path/$env_
 public="/public/"
+dist="/dist/"
+
 if [ $project == "multi_ak" ]; then
-	path=$path$pro_multi$public
-	public="/public_oxy/"
-	rsync -rlptDvz -e ssh --rsync-path='sudo rsync' $sshremote:$path .$public
-else
-	path_zsb=$path$pro_zsb$public
-	rsync -rlptDvz -e ssh --rsync-path='sudo rsync' $sshremote:$path_zsb .$public
-    path_fy=$path$pro_fy"/dist/index.html"
-    echo $path_fy
-    rsync -rlptDvz -e ssh --rsync-path='sudo rsync' $sshremote:$path_fy ./public/views/index.html
+	path=$path$multi_pro_name$public
+	echo $path
+	rsync -rlptDvz -e ssh --rsync-path='sudo rsync' $sshremote:$path ./public/
+else if [ $project == "spa_ak" ]; then
+	path=$path$spa_pro_name$dist
+	rsync -rlptDvz -e ssh --rsync-path='sudo rsync' $sshremote:$path ./dist/
+    path_dist=$path/index.html
+    echo $path_dist
+    rsync -rlptDvz -e ssh --rsync-path='sudo rsync' $sshremote:$path_dist ./public/views/index.html
 fi

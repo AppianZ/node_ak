@@ -11,60 +11,47 @@ var log4js = require('log4js');
 try {
   require('fs').mkdirSync('./server/logs');
 } catch (e) {
-  if (e.code != 'EEXIST') {
+  if (e.code != 'EXIST') {
     console.error("Could not set up log directory, error was: ", e);
     process.exit(1);
   }
 }
+
 /**
  * Get port from environment and store in Express.
  */
-
 app.set('port', port);
 log4js.configure('./server/config/log4js.json');
+
 /**
  * Create HTTP server.
  */
-
 var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
 /**
- * Normalize a port into a number, string, or false.
+ * Normalize a port into a string, number, or false.
  */
-
 function normalizePort(val) {
   var port = parseInt(val, 10);
-
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
-
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
+  if (isNaN(port)) return val;
+  if (port >= 0) return port;
   return false;
 }
 
 /**
  * Event listener for HTTP server "error" event.
  */
-
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
-
   var bind = typeof port === 'string'
     ? 'Pipe ' + port
     : 'Port ' + port;
@@ -87,7 +74,6 @@ function onError(error) {
 /**
  * Event listener for HTTP server "listening" event.
  */
-
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'

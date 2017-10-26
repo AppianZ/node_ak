@@ -34,6 +34,7 @@ gulp.task('rsync', function () {
 		console.log(' ');
 		process.exit(1);
 	}
+	console.log(argv.e, argv.p);
 	return execFile.exec(`rm -rf dist && sh rsync.sh ${argv.e} ${argv.p}`, function (err, stdout, stderr) {
 		if (err) {
 			return console.error(err);
@@ -63,5 +64,5 @@ gulp.task('watch', ['ts-compile'], function () {
 	})
 });
 
-// gulp.task('default', ['rsync', 'ts-compile', 'watch']);
-gulp.task('default', ['ts-compile', 'watch']);
+gulp.task('default', ['rsync', 'ts-compile', 'watch']);
+// gulp.task('default', ['ts-compile', 'watch']);
