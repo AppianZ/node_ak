@@ -1,9 +1,6 @@
-/**
- * Created by kodo on 17/6/10.
- */
 import '@types/node';
 
-import { Response } from '@types/express';
+import { Response } from 'express';
 
 declare module 'express' {
   interface Response {

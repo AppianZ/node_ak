@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "@types/express";
 import * as http from '../libs/axios';
 const expiresTime:number = 3 * 24 * 60 * 60 * 1000; // cookies 过期时间 3d
 import * as util from '../libs/util';
-import PlatformApi from'../apis/platform';
 
 export default async function (req:Request, res:Response, next:NextFunction) {
   const redirectUrl:string = util.getRedirectUrl(req);
@@ -40,9 +39,7 @@ export default async function (req:Request, res:Response, next:NextFunction) {
   } catch (error) {
     const platformAlias:string = util.getApplication(req) || 'test';
     try {
-      const platform = await new PlatformApi(req).platform(platformAlias);
       return res.baseRender('common/loading', {
-        appId: platform.appid,
         redirectUrl: redirectUrl,
       });
     } catch (err) {

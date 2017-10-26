@@ -7,9 +7,7 @@ import { Response, Request, NextFunction } from 'express';
 import * as fs from 'fs';
 import { getRedirectUrl, getFullUrl } from './libs/util';
 import errorTip from './config/error.config';
-import PlatformApi from './apis/platform';
 import projectConfig from './config/project.config';
-import sendDingding from './apis/exception';
 
 const app = express();
 app.set('trust proxy', true);
@@ -35,15 +33,9 @@ for (let i in projectConfig) {
 
 app.use(async(err, req: Request, res: Response, next: NextFunction) => {
   const redirectUrl = getRedirectUrl(req);
-  const platformAlias = req.headers['x-wechat-application'] || 'test';
-  const platform = await new PlatformApi(req).platform(platformAlias);
   if (!err.response) { // node 挂了
     err = new Error(err);
-    if (process.env.NODE_ENV === 'production') {
-      sendDingding.node(`${err.stack}\n${getFullUrl(req)}\n${req.headers['x-auth-token']}`);
-    } else {
-      console.log(err,'-------这里是node挂了');
-    }
+    console.log(err,'-------这里是node挂了');
     res.status(500);
     return res.baseRender('common/error', {
       error: {
@@ -55,7 +47,6 @@ app.use(async(err, req: Request, res: Response, next: NextFunction) => {
   if (err.response.status === 401) {
     console.log('--------- 401全局授权 --------');
     return res.baseRender('common/loading', {
-      appId: platform.appid,
       redirectUrl: redirectUrl,
     });
   }
@@ -64,10 +55,6 @@ app.use(async(err, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use((err, req: Request, res: Response, next: NextFunction) => {
-  if (process.env.NODE_ENV === 'production') {
-    sendDingding.java(err);
-  }
-
   res.status(err.response.status || 500);
   res.baseRender('common/error', {
     message: req.originalUrl,

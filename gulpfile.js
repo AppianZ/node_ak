@@ -9,7 +9,8 @@ const tsProject = ts.createProject('./tsconfig.json');
 const argv = require('yargs')
 .alias('e', 'env')
 .alias('p', 'project')
-	.argv;
+.alias('t', 'type')
+.argv;
 
 gulp.task('build', function () {
 	return gulp.src('./server/**/*.ts')
@@ -27,19 +28,21 @@ gulp.task('ts-compile', function () {
 });
 
 gulp.task('rsync', function () {
-	if (!argv.e || !argv.p) {
+  if (!argv.e || !argv.p || !argv.t ) {
 		console.log(' ');
-		console.log('   必须制定 -env和-project 参数');
-		console.log('   如 gulp -e test -p multi_ak 或 gulp -env test -project multi_ak');
+		console.log('   必须制定 -env -project 和 -type 参数');
+    console.log('   -env     : test | qa | prod');
+    console.log('   -project : 项目gitlab名称');
+    console.log('   -type    : multi | spa');
+    console.log('   如 gulp -e test -p multi_ak -t multi 或 gulp -env test -project multi_ak -type multi');
 		console.log(' ');
 		process.exit(1);
 	}
-	console.log(argv.e, argv.p);
-	return execFile.exec(`rm -rf dist && sh rsync.sh ${argv.e} ${argv.p}`, function (err, stdout, stderr) {
+  return execFile.exec(`rm -rf dist && sh rsync.sh ${argv.e} ${argv.p} ${argv.t}`, function (err, stdout, stderr) {
 		if (err) {
 			return console.error(err);
 		}
-		console.log(stdout, '------- 同步文件成功');
+		console.log(stdout, '============ 成功同步服务器文件到本地');
 	});
 });
 
