@@ -54,12 +54,12 @@ export function getApplication(req:Request):string {
 
 /**
  * 渲染页面的方法
- * @param viewPath 页面路径 enroll/index
+ * @param viewPath 页面路径
  * @param data  页面所需首屏数据
  */
 export function baseRender(viewPath: string, data?: any) {
   const p = 'public';
-  console.log(`${p}/views/${viewPath}`);
+  console.log(`+++ util.baseRender +++ ${p}/views/${viewPath}`);
 
   if (Object.keys(errConfig).indexOf(String(this.statusCode)) > -1) {
     this.render(`${p}/views/${viewPath}`, data);
