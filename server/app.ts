@@ -10,7 +10,6 @@ require('./config/init')(app, express);
 
 app.use('*', (req: Request, res: Response, next: NextFunction) => {
   res.project = req.baseUrl || ' ';
-  res.course = req.query.course || '1';
   next();
 });
 
@@ -26,7 +25,7 @@ app.use(async(err, req: Request, res: Response, next: NextFunction) => {
     err = new Error(err);
     console.log(err,'-------这里是node挂了');
     res.status(500);
-    return res.baseRender('common/error', {
+    return res.baseRender('test/test', {
       error: {
         stack: '系统正在升级中 [-1500]'
       }
@@ -35,7 +34,7 @@ app.use(async(err, req: Request, res: Response, next: NextFunction) => {
 
   if (err.response.status === 401) {
     console.log('--------- 401全局授权 --------');
-    return res.baseRender('common/loading', {
+    return res.baseRender('test/test', {
       redirectUrl: redirectUrl,
     });
   }
@@ -45,7 +44,7 @@ app.use(async(err, req: Request, res: Response, next: NextFunction) => {
 
 app.use((err, req: Request, res: Response, next: NextFunction) => {
   res.status(err.response.status || 500);
-  res.baseRender('common/error', {
+  res.baseRender('test/test', {
     message: req.originalUrl,
     error: {
       status: err.response.status,
@@ -59,7 +58,7 @@ app.use(function (req: Request, res: Response) {
   const err: any = new Error('这个页面不存在');
   err.status = 404;
   res.status(404);
-  res.baseRender('common/error', {
+  res.baseRender('test/test', {
     error: {
       stack: errorTip[err.status]
     }

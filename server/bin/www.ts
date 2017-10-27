@@ -32,7 +32,7 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-console.log('~~~~~~~~ port: ' +port + ' ~~~~~~~')
+console.log('~~~~~~~~ port!!! ' + port + ' ~~~~~~~')
 
 server.listen(port);
 server.on('error', onError);
