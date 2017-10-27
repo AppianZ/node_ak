@@ -11,7 +11,13 @@ class TestApi {
         this.req = req;
     }
     async getTestInit(user:string) {
-        const $state = await http.get(this.req, `/test1?user=${user}`);
+        // const $state = await http.get(this.req, `/test1?user=${user}`);
+        const $state = {
+            data : {
+                name: 'testuser-tom',
+                id: 'testid123'
+            }
+        }
         return $state.data;
     }
 }
