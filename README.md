@@ -52,7 +52,11 @@ npm run restart:[option]
 
 
 ## 从gulp看出去
-### 
+### gulp做的最重要的事就是编译typescript
+### gulp还做了一件事,就是为node项目同步前端的静态资源。利用rsync.sh来同步服务器上的代码
 
 
-
+## 回头看看/server/bin/www.ts
+>  利用 express 的 http 模块 createServer 发起一个服务,并监听 port
+>
+> 

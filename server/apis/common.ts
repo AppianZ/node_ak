@@ -1,6 +1,5 @@
 import * as http from '../libs/axios';
 import { Request } from '@types/express';
-import projectConfig from '../config/project.config';
 
 /**
  * 通用模块的Api类
@@ -16,15 +15,9 @@ class CommonApi {
 
   async wxConfig() {
     const app = this.req.headers['x-wechat-application'];
-    const courseId = this.req.query.course;
     const {protocol, originalUrl} = this.req;
     let fullUrl = `${ protocol }://${ this.req.get('host') }/${app}${ originalUrl }`;
-    // console.log(fullUrl, '-------fullurl 处理前');
-
-    if (projectConfig[courseId]) {
-      fullUrl = fullUrl.replace(`/${projectConfig[courseId]}`, '');
-    }
-    // console.log(fullUrl, '-------fullurl 处理后');
+    // console.log(fullUrl, '-------fullurl');
     let url = encodeURIComponent(fullUrl.split('#')[0]);
     let wx = await http.post(this.req, '/wx/js/signature', {
       data: `url=${url}`

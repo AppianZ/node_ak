@@ -14,10 +14,10 @@ dist="/dist/"
 
 if [ $type == "multi" ]; then
 	path=$path$project$public
-	echo "即将更新文件: ====== "$path
+	echo "NOW UPDATING: ====== "$path
 	rsync -rlptDvz -e ssh --rsync-path='sudo rsync' $sshremote:$path ./public/
 elif [ $type == "spa" ]; then
 	path=$path$project$dist
-  echo "即将更新文件: ====== "$path
+  echo "NOW UPDATING: ====== "$path
 	rsync -rlptDvz -e ssh --rsync-path='sudo rsync' $sshremote:$path ./dist/
 fi

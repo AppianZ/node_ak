@@ -14,7 +14,7 @@ const pro = {
 };
 
 const local = {
-    port: '1515',
+    port: '1500',
     baseURL: 'http://192.168.5.237:8081/api/',
 };
 

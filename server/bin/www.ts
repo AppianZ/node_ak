@@ -11,7 +11,7 @@ var log4js = require('log4js');
 try {
   require('fs').mkdirSync('./server/logs');
 } catch (e) {
-  if (e.code != 'EXIST') {
+  if (e.code != 'EEXIST') {
     console.error("Could not set up log directory, error was: ", e);
     process.exit(1);
   }

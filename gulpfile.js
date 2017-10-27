@@ -42,7 +42,7 @@ gulp.task('rsync', function () {
 		if (err) {
 			return console.error(err);
 		}
-		console.log(stdout, '============ 成功同步服务器文件到本地');
+		console.log(stdout, '============ SUCCESS TO UPDATE FROM SERVER TO LOCAL');
 	});
 });
 
@@ -67,5 +67,5 @@ gulp.task('watch', ['ts-compile'], function () {
 	})
 });
 
-gulp.task('default', ['rsync', 'ts-compile', 'watch']);
-// gulp.task('default', ['ts-compile', 'watch']);
+// gulp.task('default', ['rsync', 'ts-compile', 'watch']);
+gulp.task('default', ['ts-compile', 'watch']);

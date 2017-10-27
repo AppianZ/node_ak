@@ -1,13 +1,8 @@
-/*if(process.env.NODE_ENV === 'dev') {
- require('babel-core/register');
- require('babel-polyfill');
- }*/
 import * as express from 'express';
 import { Response, Request, NextFunction } from 'express';
 import * as fs from 'fs';
 import { getRedirectUrl, getFullUrl } from './libs/util';
 import errorTip from './config/error.config';
-import projectConfig from './config/project.config';
 
 const app = express();
 app.set('trust proxy', true);
@@ -24,12 +19,6 @@ routesFiles.forEach((file) => {
   if (file.indexOf('.js') < 0) return;
   require(`./router/${file}`)(app);
 });
-for (let i in projectConfig) {
-  routesFiles.forEach((file) => {
-    if (file.indexOf('.js') < 0) return;
-    require(`./router/${file}`)(app, projectConfig[i]);
-  });
-}
 
 app.use(async(err, req: Request, res: Response, next: NextFunction) => {
   const redirectUrl = getRedirectUrl(req);
@@ -39,7 +28,7 @@ app.use(async(err, req: Request, res: Response, next: NextFunction) => {
     res.status(500);
     return res.baseRender('common/error', {
       error: {
-        stack: '系统正在升级中 [-1515]'
+        stack: '系统正在升级中 [-1500]'
       }
     });
   }
