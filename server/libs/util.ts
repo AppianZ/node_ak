@@ -6,7 +6,6 @@ import errConfig from '../config/error.config';
  * @param req
  * @returns {string}
  */
-
 export function getFullUrl(req:Request) {
 	let protocol = req.headers["x-forwarded-proto"];
 	return `${ req.protocol }://${ req.get('host') }/${req.headers['x-wechat-application']}${ req.originalUrl }`;
@@ -59,7 +58,8 @@ export function getApplication(req:Request):string {
  */
 export function baseRender(viewPath: string, data?: any) {
   const p = 'public';
-  console.log(`+++ util.baseRender +++ ${p}/views/${viewPath}`);
+  console.log(`+++ node/libs/util.js - viewPath +++ ${p}/views/${viewPath}`);
+  console.log(`+++ node/libs/util.js - data +++ ${JSON.stringify(data)}`);
 
   if (Object.keys(errConfig).indexOf(String(this.statusCode)) > -1) {
     this.render(`${p}/views/${viewPath}`, data);
