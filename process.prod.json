@@ -1,6 +1,6 @@
 {
   "apps": [{
-    "name": "node_prod:test",
+    "name": "node_prod:multi",
     "script": "./dist/bin/www.js",
     "exec_mode": "cluster",
     "max-memory-restart": "300M",

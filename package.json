@@ -3,12 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "pm2 startOrGracefulReload process.test.json --env local",
-    "restart": "pm2 startOrRestart process.test.json --env local",
-    "start:test": "pm2 start process.json --env test",
-    "restart:test": "pm2 startOrGracefulReload process.json --env test",
-    "start:prod": "pm2 start process.json  --env prod",
-    "restart:prod": "pm2 startOrGracefulReload process.json --env prod"
+    "start": "pm2 startOrGracefulReload process.dev.json --env local",
+    "restart": "pm2 startOrRestart process.dev.json --env local",
+    "start:test": "pm2 start process.test.json --env test",
+    "restart:test": "pm2 startOrGracefulReload process.test.json --env test",
+    "start:prod": "pm2 start process.prod.json  --env prod",
+    "restart:prod": "pm2 startOrGracefulReload process.prod.json --env prod"
   },
   "dependencies": {
     "@types/es6-promise": "0.0.32",

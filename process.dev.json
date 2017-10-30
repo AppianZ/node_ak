@@ -1,6 +1,6 @@
 {
   "apps": [{
-    "name": "Close2Node",
+    "name": "node_prod:local",
     "script": "./dist/bin/www.js",
     "exec_mode": "cluster",
     "max-memory-restart": "300M",
@@ -19,6 +19,7 @@
     "env_prod": {
       "NODE_ENV": "production"
     },
+    "watch": ["dist", "public"],
     "error_file":"./pm2logs/err.log",
     "out_file":"./pm2logs/out.log",
     "log_date_format":"YYYY-MM-DD HH:mm"
