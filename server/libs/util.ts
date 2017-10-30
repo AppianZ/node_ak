@@ -58,12 +58,12 @@ export function getApplication(req:Request):string {
  */
 export function baseRender(viewPath: string, data?: any) {
   const p = 'public';
-  console.log(`+++ node/libs/util.js - viewPath +++ ${p}/views/${viewPath}`);
+  console.log(`+++ node/libs/util.js - viewPath +++ ${p}/views/${viewPath}.html`);
   console.log(`+++ node/libs/util.js - data +++ ${JSON.stringify(data)}`);
 
   if (Object.keys(errConfig).indexOf(String(this.statusCode)) > -1) {
-    this.render(`${p}/views/${viewPath}`, data);
+    this.render(`${p}/views/${viewPath}.html`, data);
   } else {
-    this.render(`${p}/views/${viewPath}`, {state: JSON.stringify(data)});
+    this.render(`${p}/views/${viewPath}.html`, {state: JSON.stringify(data)});
   }
 }
