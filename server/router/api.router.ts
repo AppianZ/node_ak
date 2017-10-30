@@ -4,7 +4,7 @@ const router = Router();
 import TestApi from '../apis/test';
 import * as util from '../libs/util';
 
-router.get('/auth', async function (req: Request, res: Response, next: NextFunction) {
+router.post('/auth', async function (req: Request, res: Response, next: NextFunction) {
     try {
         console.log('**** this is state ****' + 123456789);
         res.json(123456789);
