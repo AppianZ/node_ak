@@ -5,7 +5,7 @@ import { get, post } from '../libs/axios';
 
 router.post('/auth', async function (req: Request, res: Response, next: NextFunction) {
     try {
-        post(req, 'http://54.222.196.128:8081/api/v1/uac/oauth/token', {
+        post(req, 'api/v1/uac/oauth/token', {
             headers: {
                 Authorization: 'Basic c29wX2FwcF9wbGF0Zm9ybTpZWEJ3Y0d4aGRHWnZjbTFmYzJWamNtVjA='
             },
