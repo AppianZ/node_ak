@@ -19,5 +19,5 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
 });
 
 module.exports = function (app) {
-  app.use('/api/test', router);
+  app.use('/test', router);
 };
