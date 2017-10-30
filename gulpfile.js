@@ -67,5 +67,4 @@ gulp.task('watch', ['ts-compile'], function () {
 	})
 });
 
-// gulp.task('default', ['rsync', 'ts-compile', 'watch']);
-gulp.task('default', ['ts-compile', 'watch']);
+gulp.task('default', ['rsync', 'ts-compile', 'watch']);

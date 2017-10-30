@@ -8,18 +8,3 @@ declare module 'express' {
     baseRender: (viewPath: string, data?: any) => void
   }
 }
-
-/*declare global {
- namespace NodeJS {
- interface Global {
- resRender: any,
- }
- interface http {
- myRender: (res: Response, viewPath: string, data?: any) => void
- }
- }
- }
-
- declare global {
- const resRender: (res: Response, viewPath: string, data?: any) => void;
- }*/
