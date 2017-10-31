@@ -10,8 +10,8 @@ router.post('/auth', async function (req: Request, res: Response, next: NextFunc
         Axios.get('https://api.github.com/search/users?q=kodo')
             .then(function(data) {
                 console.log('--- axios结束值 ---')
-                console.log(data.data);
-                res.send(data.data)
+                console.log(JSON.stringify(data.data.items));
+                res.send(JSON.stringify(data.data.items));
             })
             .catch(function (error) {
                 console.log(error);
