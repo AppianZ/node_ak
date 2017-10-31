@@ -5,6 +5,7 @@ import { get, post } from '../libs/axios';
 
 router.post('/auth', async function (req: Request, res: Response, next: NextFunction) {
     try {
+        console.log('--- axios开始请求值 ---')
         post(req, 'api/v1/uac/oauth/token', {
             headers: {
                 Authorization: 'Basic c29wX2FwcF9wbGF0Zm9ybTpZWEJ3Y0d4aGRHWnZjbTFmYzJWamNtVjA='
@@ -15,6 +16,7 @@ router.post('/auth', async function (req: Request, res: Response, next: NextFunc
                 password: '151600393912017'
             }
         }).then(data => {
+            console.log('--- axios返回值 ---')
             res.send(data);
         })
     } catch (err) {
