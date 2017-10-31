@@ -22,8 +22,8 @@ router.post('/auth', async function (req: Request, res: Response, next: NextFunc
         })
             .then(function(data) {
                 console.log('--- axios结束值 ---')
-                console.log(data.access_token);
-                res.send(data.access_token);
+                console.log(data);
+                res.send(data);
             })
             .catch(function (error) {
                 console.log(error);
