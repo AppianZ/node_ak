@@ -20,10 +20,10 @@ router.post('/auth', async function (req: Request, res: Response, next: NextFunc
                 "status": "disabled"
             }),
         })
-            .then(function(data) {
+            .then(function(res) {
                 console.log('--- axios结束值 ---')
-                console.log(data);
-                res.send(data);
+                console.log(res.data);
+                res.send(res.data);
             })
             .catch(function (error) {
                 console.log(error);
