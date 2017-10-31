@@ -2,23 +2,19 @@ import { Router, Request, Response, NextFunction } from 'express';
 const router = Router();
 // import checkToken from '../middleware/check.token';
 import { get, post } from '../libs/axios';
+import Axios from 'axios';
 
 router.post('/auth', async function (req: Request, res: Response, next: NextFunction) {
     try {
         console.log('--- axios开始请求值 ---')
-        post(req, 'api/v1/uac/oauth/token', {
-            headers: {
-                Authorization: 'Basic c29wX2FwcF9wbGF0Zm9ybTpZWEJ3Y0d4aGRHWnZjbTFmYzJWamNtVjA='
-            },
-            data: {
-                grant_type: 'password',
-                username : '15160039391',
-                password: '151600393912017'
-            }
-        }).then(data => {
-            console.log('--- axios返回值 ---')
-            res.send(data);
-        })
+        Axios.get('https://api.github.com/search/users?q=kodo')
+            .then(function(data) {
+                console.log('--- axios结束值 ---')
+                console.log(data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     } catch (err) {
         next(err);
     }
