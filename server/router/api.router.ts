@@ -3,13 +3,6 @@ const router = Router();
 // import checkToken from '../middleware/check.token';
 import Axios from 'axios';
 
-var instance = axios.create({
-    baseURL: 'http://54.222.196.128:8081/api',
-    timeout: 1000,
-
-});
-
-
 router.post('/auth', async function (req: Request, res: Response, next: NextFunction) {
     try {
         console.log('--- axios开始请求值 ---')
