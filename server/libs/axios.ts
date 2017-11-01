@@ -3,9 +3,9 @@ import axios from 'axios';
 import appConfig from '../config/app.config';
 let instanceAxios:any = axios.create();
 
-instanceAxios.defaults.baseURL = appConfig.baseURL;
+axios.defaults.baseURL = appConfig.baseURL;
 
-instanceAxios.interceptors.response.use(function (response) {
+axios.interceptors.response.use(function (response) {
     // console.log(response,'-------axios,response')
     return response;
 }, function (error) {
@@ -23,7 +23,7 @@ function ajax(req: Request, options: any = {}) {
     'x-auth-token': req['x-auth-token'] || '',
   }, options.headers || {});*/
 
-  return instanceAxios({
+  return axios({
     method: options.method || 'get',
     url: options.url,
     data: options.data || {},
