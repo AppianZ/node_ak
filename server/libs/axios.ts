@@ -3,7 +3,9 @@ import axios from 'axios';
 import appConfig from '../config/app.config';
 let instanceAxios:any = axios.create();
 
+console.log(appConfig.baseURL,'-------axios,baseURL');
 instanceAxios.defaults.baseURL = appConfig.baseURL;
+//添加响应拦截器
 instanceAxios.interceptors.response.use(function (response) {
   console.log(response,'-------axios,response')
   return response;
