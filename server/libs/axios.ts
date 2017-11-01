@@ -5,19 +5,6 @@ let instanceAxios:any = axios.create();
 
 instanceAxios.defaults.baseURL = appConfig.baseURL;
 
-instanceAxios.interceptors.response.use(function (response) {
-    // console.log(response,'-------axios,response')
-    return response;
-}, function (error) {
-    // console.log(error,'---------error，axios');
-    if (error.response.status === 401) {
-        throw error;
-    }
-    // console.log(error, '-------axios,error');
-    // Do something with response error
-    return Promise.reject(error);
-});
-
 function ajax(req: Request, options: any = {}) {
 /*  const headers = Object.assign({
     'x-auth-token': req['x-auth-token'] || '',
@@ -28,6 +15,13 @@ function ajax(req: Request, options: any = {}) {
     url: options.url,
     data: options.data || {},
     headers: options.headers,
+  })
+      .then(response => {
+          console.log('---- axois instance respone ---');
+          console.log(response)
+      })
+      .catch(error => {
+      console.log(error)
   })
 }
 
