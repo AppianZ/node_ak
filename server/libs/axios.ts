@@ -31,9 +31,10 @@ function ajax(req: Request, options: any = {}) {
 
 export function get(req: Request, url: string, options: any = {}) {
   return ajax(req, {
-    url: url,
-    data: options.data || {},
-    headers: options.headers || {},
+     url: url,
+     method: 'get',
+     data: options.data || {},
+     headers: options.headers || {},
   })
 }
 
