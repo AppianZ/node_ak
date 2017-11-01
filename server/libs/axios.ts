@@ -25,7 +25,8 @@ function ajax(req: Request, options: any = {}) {
       .catch(function(error) {
           console.log('---- axois instance error ---');
           console.log(error)
-  })
+          return error;
+      })
 }
 
 export function get(req: Request, url: string, options: any = {}) {
