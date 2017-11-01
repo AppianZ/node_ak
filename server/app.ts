@@ -19,6 +19,13 @@ routesFiles.forEach((file) => {
   require(`./router/${file}`)(app);
 });
 
+let httpFiles = fs.readdirSync(`./dist/http/`);
+httpFiles.forEach((file) => {
+    if (file.indexOf('.js') < 0) return;
+    require(`./http/${file}`)(app);
+});
+
+
 app.use(async(err, req: Request, res: Response, next: NextFunction) => {
   const redirectUrl = getRedirectUrl(req);
   if (!err.response) { // node 挂了
