@@ -1,27 +1,30 @@
 import { Request } from '@types/express';
 import axios from 'axios';
 import appConfig from '../config/app.config';
-let instanceAxios:any = axios.create();
+// let instanceAxios:any = axios.create();
 
-instanceAxios.defaults.baseURL = appConfig.baseURL;
+// instanceAxios.defaults.baseURL = appConfig.baseURL;
 
 function ajax(req: Request, options: any = {}) {
 /*  const headers = Object.assign({
     'x-auth-token': req['x-auth-token'] || '',
   }, options.headers || {});*/
 
-  return instanceAxios({
+  return axios({
+    baseURL: appConfig.baseURL,
     method: options.method || 'get',
     url: options.url,
     data: options.data || {},
     headers: options.headers,
   })
-      .then(response => {
+      .then(function(response) {
           console.log('---- axois instance respone ---');
-          console.log(response)
+          console.log(response);
+          return response;
       })
-      .catch(error => {
-      console.log(error)
+      .catch(function(error) {
+          console.log('---- axois instance error ---');
+          console.log(error)
   })
 }
 
