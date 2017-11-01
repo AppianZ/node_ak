@@ -4,7 +4,7 @@ const router = Router();
 import TestApi from '../apis/test';
 import * as util from '../libs/util';
 
-router.get('/', checkToken, async function (req: Request, res: Response, next: NextFunction) {
+router.get('/', async function (req: Request, res: Response, next: NextFunction) {
     const user = req.query.user || 'testuser1';
 
     const $state = new TestApi(req).getTestInit(user);
