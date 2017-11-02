@@ -1,6 +1,6 @@
 // server 环境配置
 const env = process.env.NODE_ENV;
-console.log('~~~~~~~~ env: ' +env + ' ~~~~~~~')
+console.log('~~~~~~~~ env: ' + env + ' ~~~~~~~')
 
 const common = {};
 
