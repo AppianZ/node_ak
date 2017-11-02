@@ -7,7 +7,7 @@ import Axios from 'axios';
 router.post('/auth', async function (req: Request, res: Response, next: NextFunction) {
     try {
         console.log('--- axios开始请求值 ---')
-        Axios.get({
+        Axios({
             method: 'get',
             url: 'https://api.github.com/search/users?q=appian',
         })
