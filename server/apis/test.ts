@@ -20,6 +20,15 @@ class TestApi {
         }
         return $state.data;
     }
+
+    async getUser(name:string) {
+        const $state = await http.get(this.req, '/search/users', {
+            data: {
+                q: name
+            }
+        });
+        return $state.data;
+    }
 }
 
 export default TestApi;

@@ -5,15 +5,11 @@ let instanceAxios:any = axios.create();
 
 instanceAxios.defaults.baseURL = appConfig.baseURL;
 instanceAxios.interceptors.response.use(function (response) {
-    // console.log(response,'-------axios,response')
     return response;
 }, function (error) {
-    // console.log(error,'---------error，axios');
     if (error.response.status === 401) {
         throw error;
     }
-    // console.log(error, '-------axios,error');
-    // Do something with response error
     return Promise.reject(error);
 });
 
@@ -31,6 +27,7 @@ function ajax(req: Request, options: any = {}) {
     const method = options.method || 'get';
     const data = options.data || {};
     const url = method == 'get' ? generatorUrl(options.url, data) : options.url;
+
     /*   const headers = Object.assign({
      'x-auth-token': req['x-auth-token'] || '',
      }, options.headers || {});*/

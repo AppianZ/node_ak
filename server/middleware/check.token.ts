@@ -5,14 +5,13 @@ import * as util from '../libs/util';
 
 export default async function (req:Request, res:Response, next:NextFunction) {
   const redirectUrl:string = util.getRedirectUrl(req);
-  const debugid:string = req.query.debugid;
-  const code:string = req.query.code;
+
   // console.log(redirectUrl, '------redirectUrl处理后');
+
   try {
     if (code || debugid) {
       const ret = await http.post(req, '/token', {
         method: 'post',
-        data: debugid ? `debugId=${debugid}` : `code=${code}`,
       });
 
       // res设置cookie.x-auth-token

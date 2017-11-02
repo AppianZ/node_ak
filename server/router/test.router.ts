@@ -17,7 +17,6 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
 });
 
 
-
 module.exports = function (app) {
   app.use('/test', router);
 };
