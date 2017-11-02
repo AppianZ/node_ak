@@ -62,10 +62,12 @@ export function post(req: Request, url: string, options: any = {}, type?: string
         'Content-Type': contentType[type]
     }, options.headers || {});
 
+    const data = options.data || {};
+
     return ajax(req, {
         url: url,
         method: 'post',
-        data: options.data || {},
+        data: type == 'json' ? JSON.stringify(data) : data,
         headers: headers || {},
     })
 }
