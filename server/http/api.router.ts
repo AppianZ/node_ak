@@ -8,6 +8,7 @@ router.post('/auth', async function (req: Request, res: Response, next: NextFunc
     try {
         console.log('--- axios开始请求值 ---')
         const result:any = await result;
+        console.log(result);
         res.send(result);
     } catch (err) {
         next(err);

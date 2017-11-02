@@ -19,8 +19,7 @@ function generatorUrl(url: string, data: any = {}) {
     for(let i in data) {
         queryArr.push(`${i}=${data[i]}`)
     }
-    console.log(queryArr);
-     return `${url}?${queryArr.join('&')}`
+    return `${url}?${queryArr.join('&')}`
 }
 
 function ajax(req: Request, options: any = {}) {
