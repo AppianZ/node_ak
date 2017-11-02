@@ -1,17 +1,19 @@
 import { Request } from '@types/express';
 import axios from 'axios';
 import appConfig from '../config/app.config';
+let instanceAxios:any = axios.create();
 
-// axios.defaults.baseURL = appConfig.baseURL;
-axios.interceptors.response.use(function (response) {
+instanceAxios.defaults.baseURL = appConfig.baseURL;
+instanceAxios.interceptors.response.use(function (response) {
     // console.log(response,'-------axios,response')
     return response;
 }, function (error) {
+    // console.log(error,'---------error，axios');
     if (error.response.status === 401) {
-        /*console.log('unauthorized, logging out ...');
-        auth.logout();*/
         throw error;
     }
+    // console.log(error, '-------axios,error');
+    // Do something with response error
     return Promise.reject(error);
 });
 
@@ -20,7 +22,7 @@ function ajax(req: Request, options: any = {}) {
     'x-auth-token': req['x-auth-token'] || '',
     }, options.headers || {});*/
 
-    return axios({
+    return instanceAxios({
         method: options.method || 'get',
         url: options.url,
         data: options.data || {},
