@@ -4,10 +4,10 @@ const router = Router();
 import TestApi from '../apis/test';
 
 router.post('/auth', async function (req: Request, res: Response, next: NextFunction) {
-    const result = new TestApi(req).getUser('appian');
+    const list = new TestApi(req).getUser('appian');
     try {
         console.log('--- axios开始请求值 ---')
-        const result:any = await result;
+        const result = await list;
         console.log(result);
         res.send(result);
     } catch (err) {

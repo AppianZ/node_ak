@@ -27,7 +27,6 @@ class TestApi {
                 q: name
             }
         });
-        console.log(list);
         return list.data;
     }
 }
