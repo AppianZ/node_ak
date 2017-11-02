@@ -3,15 +3,17 @@ import axios from 'axios';
 import appConfig from '../config/app.config';
 
 // axios.defaults.baseURL = appConfig.baseURL;
-/*instanceAxios.interceptors.response.use(function (response) {
+axios.interceptors.response.use(function (response) {
     // console.log(response,'-------axios,response')
     return response;
 }, function (error) {
     if (error.response.status === 401) {
+        /*console.log('unauthorized, logging out ...');
+        auth.logout();*/
         throw error;
     }
-    return Promise.reject(error);
-});*/
+    return Promise.reject(error.response);
+});
 
 function ajax(req: Request, options: any = {}) {
 /*   const headers = Object.assign({

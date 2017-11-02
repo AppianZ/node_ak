@@ -18,7 +18,7 @@ router.post('/auth', async function (req: Request, res: Response, next: NextFunc
                 res.send(data.data)
             })
             .catch(function (error) {
-                console.log(error);
+                console.log(error.response);
             });
     } catch (err) {
         next(err);
