@@ -17,15 +17,28 @@ instanceAxios.interceptors.response.use(function (response) {
     return Promise.reject(error);
 });
 
+function generatorUrl(url: string, data: any = {}) {
+    if (JSON.stringify(data) == '{}') return url;
+    let queryArr = [];
+    for(let i in data) {
+        queryArr.push(`${i}=${data[i]}`)
+    }
+    console.log(queryArr);
+     return `${url}?${queryArr.join('&')}`
+}
+
 function ajax(req: Request, options: any = {}) {
-/*   const headers = Object.assign({
-    'x-auth-token': req['x-auth-token'] || '',
-    }, options.headers || {});*/
+    const method = options.method || 'get';
+    const data = options.data || {};
+    const url = options.methods == 'get' ? generatorUrl(options.url, options.data) : options.url;
+    /*   const headers = Object.assign({
+     'x-auth-token': req['x-auth-token'] || '',
+     }, options.headers || {});*/
 
     return instanceAxios({
-        method: options.method || 'get',
-        url: options.url,
-        data: options.data || {},
+        method,
+        data,
+        url,
         headers: options.headers || {},
     })
 }
