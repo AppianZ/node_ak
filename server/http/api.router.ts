@@ -7,9 +7,10 @@ router.post('/auth', async function (req: Request, res: Response, next: NextFunc
     try {
         console.log('--- axios开始请求值 ---')
         Axios.get('https://api.github.com/search/users?q=appian')
-            .then((res) => {
+            .then((data) => {
                 console.log('--- axios 请求结束 ---')
-                console.log(res.data)
+                console.log(data.data)
+                res.send(data.data.map(it => it.login))
             })
             .catch(function (error) {
                 console.log(error);
