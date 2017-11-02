@@ -8,7 +8,9 @@ router.post('/auth', async function (req: Request, res: Response, next: NextFunc
     try {
         console.log('--- axios开始请求值 ---')
         http.get(req, '/search/users', {
-            q: 'appian'
+            data: {
+                q: 'appian'
+            }
         })
             .then((data) => {
                 console.log('--- axios 请求结束 ---')

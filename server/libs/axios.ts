@@ -30,13 +30,14 @@ function generatorUrl(url: string, data: any = {}) {
 function ajax(req: Request, options: any = {}) {
     const method = options.method || 'get';
     const data = options.data || {};
-    const url = options.methods == 'get' ? generatorUrl(options.url, options.data) : options.url;
+    const url = options.method == 'get' ? generatorUrl(options.url, options.data) : options.url;
     /*   const headers = Object.assign({
      'x-auth-token': req['x-auth-token'] || '',
      }, options.headers || {});*/
 
     return instanceAxios({
         method,
+        data,
         url,
         headers: options.headers || {},
     })
