@@ -22,12 +22,13 @@ class TestApi {
     }
 
     async getUser(name:string) {
-        const $state = await http.get(this.req, '/search/users', {
+        const list = await http.get(this.req, '/search/users', {
             data: {
                 q: name
             }
         });
-        return $state.data;
+        console.log(list);
+        return list.data;
     }
 }
 
