@@ -37,7 +37,6 @@ function ajax(req: Request, options: any = {}) {
 
     return instanceAxios({
         method,
-        data,
         url,
         headers: options.headers || {},
     })
