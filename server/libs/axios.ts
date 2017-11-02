@@ -5,6 +5,15 @@ import appConfig from '../config/app.config';
 
 // instanceAxios.defaults.baseURL = appConfig.baseURL;
 
+/*api.interceptors.request.use(config => {
+    if (window.localStorage.ACCESS_TOKEN) {
+        config.headers.Authorization = 'Bearer ' + window.localStorage.ACCESS_TOKEN
+    }
+    return config
+}, error => {
+    return Promise.reject(error)
+})*/
+
 function ajax(req: Request, options: any = {}) {
 /*  const headers = Object.assign({
     'x-auth-token': req['x-auth-token'] || '',
