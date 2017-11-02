@@ -4,42 +4,26 @@ import appConfig from '../config/app.config';
 let instanceAxios:any = axios.create();
 
 instanceAxios.defaults.baseURL = appConfig.baseURL;
-instanceAxios.interceptors.response.use(function (response) {
+/*instanceAxios.interceptors.response.use(function (response) {
     // console.log(response,'-------axios,response')
     return response;
 }, function (error) {
-    // console.log(error,'---------error，axios');
     if (error.response.status === 401) {
         throw error;
     }
-    // console.log(error, '-------axios,error');
-    // Do something with response error
     return Promise.reject(error);
-});
-
-function generatorUrl(url: string, app: string) {
-    if (!app) return url;
-
-    if (url.indexOf('?') > -1) {
-        return `${url}&app=${app}`
-    }
-    return `${url}?app=${app}`
-}
+});*/
 
 function ajax(req: Request, options: any = {}) {
-    const app: string = req.query.app;
-
-    const headers = Object.assign({
-        'x-auth-token': req['x-auth-token'] || '',
-        'X-Wechat-Application': req.headers['x-wechat-application'] || 'test',
-        'X-Real-IP': req.headers['x-real-ip'] || ''
-    }, options.headers || {});
+/*   const headers = Object.assign({
+    'x-auth-token': req['x-auth-token'] || '',
+    }, options.headers || {});*/
 
     return instanceAxios({
         method: options.method || 'get',
-        url: generatorUrl(options.url, app),
+        url: options.url,
         data: options.data || {},
-        headers: headers,
+        headers: options.headers || {},
     })
 }
 
