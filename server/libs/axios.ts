@@ -2,7 +2,7 @@ import { Request } from '@types/express';
 import axios from 'axios';
 import appConfig from '../config/app.config';
 
-axios.defaults.baseURL = appConfig.baseURL;
+// axios.defaults.baseURL = appConfig.baseURL;
 /*instanceAxios.interceptors.response.use(function (response) {
     // console.log(response,'-------axios,response')
     return response;
