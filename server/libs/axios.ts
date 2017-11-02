@@ -12,7 +12,7 @@ axios.interceptors.response.use(function (response) {
         auth.logout();*/
         throw error;
     }
-    return Promise.reject(error.response);
+    return Promise.reject(error);
 });
 
 function ajax(req: Request, options: any = {}) {
