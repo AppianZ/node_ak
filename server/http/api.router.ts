@@ -6,9 +6,24 @@ import TestApi from '../apis/test';
 router.post('/auth', async function (req: Request, res: Response, next: NextFunction) {
     const list = new TestApi(req).getUser('appian');
     try {
-        console.log('--- axios开始请求值 ---')
         const result = await list;
-        console.log(result);
+        res.send(result);
+    } catch (err) {
+        next(err);
+    }
+});
+
+
+router.post('/token', async function (req: Request, res: Response, next: NextFunction) {
+    const list = new TestApi(req).getToken({
+        "platform": "app",
+        "type": "URL",
+        "title": "google1",
+        "address": "www.google.com",
+        "status": "disabled"
+    });
+    try {
+        const result = await list;
         res.send(result);
     } catch (err) {
         next(err);
@@ -19,22 +34,3 @@ module.exports = function (app) {
   app.use('/api', router);
 };
 
-
-/*try {
-    console.log('--- axios开始请求值 ---')
-    http.get(req, '/search/users', {
-        data: {
-            q: 'appian'
-        }
-    })
-        .then((data) => {
-            console.log('--- axios 请求结束 ---')
-            console.log(data.data)
-            res.send(data.data)
-        })
-        .catch(function (error) {
-            console.log(error.response);
-        });
-} catch (err) {
-    next(err);
-}*/
