@@ -1,6 +1,5 @@
-# Node
-
-## 从npm上看出去
+# 第二节：从项目入口文件看开去
+## NPM
 ### /package.json
 There are 3 envs for public. You can use option to set diff envs.
 ```
@@ -12,51 +11,55 @@ npm run restart:[option]
 > 
 > Recognised type values are: **local**, **test**, **prod**
 >
-> default env is local.
+> Default env is local.
 
- ```
- // 本地环境下执行process.test.json
- npm run start
-```
+When the env is local, use ` npm run start ` to exec process.dev.json
+When the env is test, use ` npm run start:test ` to exec process.test.json
+When the env is production,  use  ` npm run start:prod` to exec process.prod.json
 
- ```
- // 本地环境下执行process.json
- npm run start:test
- npm run start:prod
-```
+> The `process.json` is the entry-file in PM2. We'll discuss it in following content.
+> 
+> We just need to know that `process.test.json` is same to `process.prod.json` except the name of object.
+> 
+> And the difference between `process.dev.json` and them is the `watch` option.
 
-> process.json 和 process.test.json 相差一个watch
 
 ### /process.json
 
-> pm2在执行的时候,会利用process.json的配置来管理文件
+>  The config of `process.json` will help it to manage files when PM2 exec the command to run a server.
 > 
-> 其中 script 作为pm2执行的入口文件
+> The `name` is a symbol of the progress.  You can recognize it with `pm2 list`.
+> 
+> The `script` is an entry of the config. The http-server in this file will start.
+> 
+> [Get more information](http://pm2.keymetrics.io/docs/usage/application-declaration/)
 
 
 ### /server/bin/www.ts
-> process.json中的script指向了./dist/bin/www.js, 
+> You must notice the `script` of process.json is `./dist/bin/www.js` 
 > 
-> ./dist/bin/www.js 是由 ./server/bin/www.ts 编译而成的
+> `./dist/bin/www.js` is compiled by `./server/bin/www.ts`
 >
-> ./server/bin/www.ts做的最重要的事就是根据../config/app.config的端口配制起服务
+> The most significant work in `./server/bin/www.ts` is to create server using the formatting port that is defined throught the different envs.
+>
+> The relation between prots and envs is defined in `/server/config/app.config.ts`
 
 ### /server/config/app.config.ts
-> 在这个ts中动态配置出不同env下的port.
+> This file define the relation between prots and envs 
 >
-> 并且这个文件中配置的url,会在封装好的axios中使用
-
+> And the attribute `baseurl` will be used in axios.
 
 ### /server/libs/axios.ts
-> appConfig.baseUR作为请求的基本url, 详细的请求路径可以根据文档详细配置
+> The request interceptor based on axios.
 
 
-## 从gulp看出去
-### gulp做的最重要的事就是编译typescript
-### gulp还做了一件事,就是为node项目同步前端的静态资源。利用rsync.sh来同步服务器上的代码
+## Gulp
+### gulp build
+> This command will compile typescript to JavaScript
 
-
-## 回头看看/server/bin/www.ts
->  利用 express 的 http 模块 createServer 发起一个服务,并监听 port
->
+### gulp -e [test | qa | prod] -p <project-name> -t [multi | spa]
+>  `e` or `env` means the env you wanna to update.
 > 
+>  `p` or `project` assign the project you wanna to update.
+> 
+>   `t` or `type` assign the type of project you wanna to update.
