@@ -62,4 +62,4 @@ When the env is production,  use  ` npm run start:prod` to exec process.prod.jso
 > 
 >  `p` or `project` assign the project you wanna to update.
 > 
->   `t` or `type` assign the type of project you wanna to update.
+>  `t` or `type` assign the type of project you wanna to update.
