@@ -54,4 +54,3 @@ jspm_packages
 .vscode
 /server/pm2logs
 /dist
-/server/app.ts
