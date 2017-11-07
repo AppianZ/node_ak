@@ -1,65 +1,84 @@
-# 第二节：从项目入口文件看开去
-## NPM
-### /package.json
-There are 3 envs for public. You can use option to set diff envs.
+## How to use
+### ./package.json
+The `scripts` define some PM2 commands according to different environments. And It'll exec different process file.
+
+The `scripts` use the same mode -- `start | restart : [option]`.
+
+Recognised type values are: **prod**, **test**, defalut is **local**.
+
+> **You may need to optimize the new `scripts` for new env in *./package.json:11*.**
+
+### ./process.json
+You need to define the `name` of apps.
+ It'll help you recognize your process among lots of PM2 process list.
+
+> **You must optimize the `name` in *./process.dev.json:3* ,  *./process.prod.json:3*  & *./process.test.json:3*.**
+
+### /server/config/app.config.ts
+This file is order to make a distinction among many envs.
+You need to set the unique `port` and `baseurl` by yourself.
+Recognised env values are: **production**, **test** and **local**.
+
+> `port` means the port of process that you just started the PM2 server.
+> 
+> `baseurl` will be use in axios, and the axios will help you to generate promise based HTTP client for the browser and node.js
+>
+> **You must optimize the `name` in *./server/config/app.config.ts:7-21*. **
+
+###./server/app.ts
+This file is order to catch the error or undefined path and designate the global error-html to show logs or redirect to other url.
+
+> **You must optimize every express middleware callback in *./server/app.ts:22-66* .**
+
+###./server/config/init.ts
+In this file, we set the type of template as *html*.
+We define the static middleware and the tag of the template, so that the express can find the static file and send the data to the specified template.
+
+> **You may need to optimize the new `tag` in *./server/config/init.ts:14-17*.**
+> 
+> **Or need to optimize the new `static` in *./server/config/init.ts:29*.**
+
+### ./rsync.sh
+This file is just used for sync data from the node-server from local.
+
+> **You must optimize the `sshremote` & the correct `base_path` in server in *./rsync.sh:3-4*.**
+
+
+## How to run
+1.Use npm to install dependencies, make sure your node version >= 6.
 ```
+npm install
+```
+
+2.Acooding to your environment, create your node-server by using PM2 in your server.
+```
+// first time to create the server 
 npm run start:[option]
+
+// after update the new code
 npm run restart:[option]
 ```
 
 > **option**: use to describe the public env.
 > 
-> Recognised type values are: **local**, **test**, **prod**
+> Recognised type values are: **prod**, **test** and **nothing**
 >
-> Default env is local.
+> You can also create new env for your convince.
 
-When the env is local, use ` npm run start ` to exec process.dev.json
-When the env is test, use ` npm run start:test ` to exec process.test.json
-When the env is production,  use  ` npm run start:prod` to exec process.prod.json
+## How to test
+1.Open the compiler to compile typescript to normal javascript.
+```
+gulp build
+```
 
-> The `process.json` is the entry-file in PM2. We'll discuss it in following content.
+2.Download the code from the server to local, so that you can test your express static middleware.
+```
+gulp -env [env] -project <project-name> -type [type]
+```
+> **env**: use to describe the public env.
 > 
-> We just need to know that `process.test.json` is same to `process.prod.json` except the name of object.
-> 
-> And the difference between `process.dev.json` and them is the `watch` option.
-
-
-### /process.json
-
->  The config of `process.json` will help it to manage files when PM2 exec the command to run a server.
-> 
-> The `name` is a symbol of the progress.  You can recognize it with `pm2 list`.
-> 
-> The `script` is an entry of the config. The http-server in this file will start.
-> 
-> [Get more information](http://pm2.keymetrics.io/docs/usage/application-declaration/)
-
-
-### /server/bin/www.ts
-> You must notice the `script` of process.json is `./dist/bin/www.js` 
-> 
-> `./dist/bin/www.js` is compiled by `./server/bin/www.ts`
+> Recognised type values are: **prod**, **test** and so on.
 >
-> The most significant work in `./server/bin/www.ts` is to create server using the formatting port that is defined throught the different envs.
->
-> The relation between prots and envs is defined in `/server/config/app.config.ts`
-
-### /server/config/app.config.ts
-> This file define the relation between prots and envs 
->
-> And the attribute `baseurl` will be used in axios.
-
-### /server/libs/axios.ts
-> The request interceptor based on axios.
-
-
-## Gulp
-### gulp build
-> This command will compile typescript to JavaScript
-
-### gulp -e [test | qa | prod] -p <project-name> -t [multi | spa]
->  `e` or `env` means the env you wanna to update.
+> **type**: use to describe the type of your project.
 > 
->  `p` or `project` assign the project you wanna to update.
-> 
->  `t` or `type` assign the type of project you wanna to update.
+> Recognised type values are: **multi**,and **spa**.
