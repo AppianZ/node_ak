@@ -22,7 +22,6 @@ try {
  */
 app.set('port', port);
 log4js.configure('./server/config/log4js.json');
-console.log(app);
 
 /**
  * Create HTTP server.
@@ -46,6 +45,8 @@ server.on('listening', onListening);
 
 var targetSocketArray = [];
 var roomGroupList = [];
+
+console.log(io);
 
 io.on('connection', function (socket) {
     console.log('in connection callback--  ' , socket);
@@ -79,7 +80,7 @@ io.on('connection', function (socket) {
     });
 
 });
-
+server.listen(port);
 
 /**
  * Normalize a port into a string, number, or false.
