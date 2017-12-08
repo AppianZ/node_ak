@@ -27,6 +27,7 @@ log4js.configure('./server/config/log4js.json');
  * Create HTTP server.
  */
 var server = http.createServer(app);
+var io = require('socket.io')(server);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -37,6 +38,42 @@ console.log('~~~~~~~~ port ' + port + ' ~~~~~~~')
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+/**
+ * websocket work.
+ */
+
+var targetSocketArray = [];
+var roomGroupList = [];
+
+io.on('connection', function (socket) {
+    socket.on('joinToRoom', function (data) {
+        socket.join(data.roomGroupId)
+        roomGroupList.push(data.roomGroupId);
+    })
+
+    socket.on('addUser', function (data, func) {
+        targetSocketArray.push(data.user);
+        socket.in(data.roomGroupId).emit('showUser', targetSocketArray.filter(function (item) {
+            return item.roomGroupId == data.roomGroupId;
+        }));
+        func(targetSocketArray);
+    });
+
+    socket.on('increaseCount', function (data) {
+        targetSocketArray.map(function(item) {
+            if(item.id == data.id) {
+                item.content = Object.assign({}, item.content, data.content);
+            }
+            return item;
+        })
+        socket.in(data.roomGroupId).emit('showUser', targetSocketArray.filter(function (item) {
+            return item.roomGroupId == data.roomGroupId;
+        }));
+    });
+
+});
+
 
 /**
  * Normalize a port into a string, number, or false.
