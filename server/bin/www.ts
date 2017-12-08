@@ -22,13 +22,13 @@ try {
  */
 app.set('port', port);
 log4js.configure('./server/config/log4js.json');
+console.log(app);
 
 /**
  * Create HTTP server.
  */
 var server = http.createServer(app);
 var io = require('socket.io')(server);
-console.log(server);
 
 /**
  * Listen on provided port, on all network interfaces.
