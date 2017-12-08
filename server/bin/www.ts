@@ -45,6 +45,7 @@ server.on('listening', onListening);
 
 var targetSocketArray = [];
 var roomGroupList = [];
+console.log('-----  ' , io.on);
 
 io.on('connection', function (socket) {
 
