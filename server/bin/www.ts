@@ -28,6 +28,7 @@ log4js.configure('./server/config/log4js.json');
  */
 var server = http.createServer(app);
 var io = require('socket.io')(server);
+console.log(server);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -45,7 +46,6 @@ server.on('listening', onListening);
 
 var targetSocketArray = [];
 var roomGroupList = [];
-console.log(io);
 
 io.on('connection', function (socket) {
     console.log('in connection callback--  ' , socket);
