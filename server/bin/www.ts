@@ -47,8 +47,6 @@ var io = require('socket.io')(server);
 var targetSocketArray = [];
 var roomGroupList = [];
 
-console.log(io);
-
 io.on('connection', function (socket) {
     console.log('in connection callback--  ' , socket);
 
