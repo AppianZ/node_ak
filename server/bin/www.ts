@@ -27,7 +27,7 @@ log4js.configure('./server/config/log4js.json');
  * Create HTTP server.
  */
 var server = http.createServer(app);
-var io = require('socket.io')(server);
+var io = require('socket.io').listen(port);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -35,7 +35,6 @@ var io = require('socket.io')(server);
 
 console.log('~~~~~~~~ port ' + port + ' ~~~~~~~')
 
-server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
