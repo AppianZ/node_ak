@@ -45,11 +45,11 @@ server.on('listening', onListening);
 
 var targetSocketArray = [];
 var roomGroupList = [];
-console.log('-----  ' , io.on);
+console.log('-----  ' , io.sockets.on);
 
-io.on('connection', function (socket) {
+io.sockets.on('connection', function (socket) {
 
-    console.log('targetSocketArray--  ' , targetSocketArray);
+    console.log('in connection callback--  ' , socket);
 
     socket.on('joinToRoom', function (data) {
         socket.join(data.roomGroupId)
