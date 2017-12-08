@@ -49,11 +49,13 @@ var roomGroupList = [];
 io.on('connection', function (socket) {
     socket.on('joinToRoom', function (data) {
         socket.join(data.roomGroupId)
+        console.log('--- joinToRoom ---- ' + data.roomGroupId);
         roomGroupList.push(data.roomGroupId);
     })
 
     socket.on('addUser', function (data, func) {
         targetSocketArray.push(data.user);
+        console.log('--- addUser ---- ' + targetSocketArray);
         socket.in(data.roomGroupId).emit('showUser', targetSocketArray.filter(function (item) {
             return item.roomGroupId == data.roomGroupId;
         }));
@@ -67,6 +69,7 @@ io.on('connection', function (socket) {
             }
             return item;
         })
+        console.log('--- increaseCount ---- ' + targetSocketArray);
         socket.in(data.roomGroupId).emit('showUser', targetSocketArray.filter(function (item) {
             return item.roomGroupId == data.roomGroupId;
         }));
