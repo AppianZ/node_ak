@@ -80,7 +80,6 @@ io.on('connection', function (socket) {
     });
 
 });
-server.listen(port);
 
 /**
  * Normalize a port into a string, number, or false.
