@@ -46,9 +46,10 @@ server.on('listening', onListening);
 var targetSocketArray = [];
 var roomGroupList = [];
 
-console.log(io);
-
 io.on('connection', function (socket) {
+
+    console.log('targetSocketArray--  ' , targetSocketArray);
+
     socket.on('joinToRoom', function (data) {
         socket.join(data.roomGroupId)
         console.log('--- joinToRoom ---- ' + data.roomGroupId);
