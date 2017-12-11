@@ -3,7 +3,14 @@ const router = Router();
 // import checkToken from '../middleware/check.token';
 import TestApi from '../apis/test';
 import * as util from '../libs/util';
-// var io = require('socket.io')(server);
+import express from 'express';
+const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io').listen(server);
+
+server.listen(app.get('port'), function(){
+    console.log("Express server listening on port " + app.get('port'));
+});
 
 router.get('/', async function (req: Request, res: Response, next: NextFunction) {
     const user = req.query.user || 'testuser1';
@@ -12,6 +19,7 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
     try {
         const state:any = await $state;
         res.baseRender('test/index', state);
+
         /**
          * websocket work.
          */
