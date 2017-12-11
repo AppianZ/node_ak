@@ -5,6 +5,7 @@ import TestApi from '../apis/test';
 import * as util from '../libs/util';
 import express from 'express';
 const app = express();
+app.set('port', 3001);
 const server = require('http').createServer(app);
 const io = require('socket.io').listen(server);
 
