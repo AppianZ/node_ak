@@ -51,7 +51,7 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
         //
         // });
 
-        res.io.emit("showUser", "users");
+        console.log(res);
 
         res.baseRender('test/index', state);
     } catch (err) {

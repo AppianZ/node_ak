@@ -41,12 +41,12 @@ app.use(async(err, req: Request, res: Response, next: NextFunction) => {
     });
   }
 
-  if (err.response.status === 401) {
+ /* if (err.response.status === 401) {
     console.log('--------- 401全局授权 --------');
     return res.baseRender('happy/feng', {
       redirectUrl: redirectUrl,
     });
-  }
+  }*/
   console.error(err, '----------error 全局');
   next(err);
 });
