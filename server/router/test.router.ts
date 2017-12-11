@@ -51,9 +51,8 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
         //
         // });
 
-        console.log(res.io);
-
         res.baseRender('test/index', state);
+        res.io.emit("showUser", "users123");
     } catch (err) {
         next(err);
     }
