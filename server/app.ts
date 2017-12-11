@@ -30,12 +30,11 @@ httpFiles.forEach((file) => {
 
 
 app.use(async(err, req: Request, res: Response, next: NextFunction) => {
-  const redirectUrl = getRedirectUrl(req);
   if (!err.response) { // node 挂了
     err = new Error(err);
     console.log(err,'-------这里是node挂了');
     res.status(500);
-    return res.baseRender('test/test', {
+    return res.baseRender('happy/feng', {
       error: {
         stack: '系统正在升级中 [-1500]'
       }
@@ -44,7 +43,7 @@ app.use(async(err, req: Request, res: Response, next: NextFunction) => {
 
   if (err.response.status === 401) {
     console.log('--------- 401全局授权 --------');
-    return res.baseRender('test/test', {
+    return res.baseRender('happy/feng', {
       redirectUrl: redirectUrl,
     });
   }
@@ -54,7 +53,7 @@ app.use(async(err, req: Request, res: Response, next: NextFunction) => {
 
 app.use((err, req: Request, res: Response, next: NextFunction) => {
   res.status(err.response.status || 500);
-  res.baseRender('test/test', {
+  res.baseRender('happy/feng', {
     message: req.originalUrl,
     error: {
       status: err.response.status,
@@ -68,7 +67,7 @@ app.use(function (req: Request, res: Response) {
   const err: any = new Error('这个页面不存在');
   err.status = 404;
   res.status(404);
-  res.baseRender('test/test', {
+  res.baseRender('happy/feng', {
     error: {
       stack: errorTip[err.status]
     }
@@ -78,7 +77,7 @@ app.use(function (req: Request, res: Response) {
 /*
     adds socket.io to res in our event loop.
 * */
-app.use(function(req, res, next){
+app.use(function(req: Request, res: Response, next: NextFunction) {
     res.io = io;
     next();
 });
