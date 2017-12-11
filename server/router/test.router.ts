@@ -3,7 +3,7 @@ const router = Router();
 // import checkToken from '../middleware/check.token';
 import TestApi from '../apis/test';
 import * as util from '../libs/util';
-var io = require('socket.io')(server);
+// var io = require('socket.io')(server);
 
 router.get('/', async function (req: Request, res: Response, next: NextFunction) {
     const user = req.query.user || 'testuser1';
