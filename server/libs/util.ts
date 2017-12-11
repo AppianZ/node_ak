@@ -24,8 +24,7 @@ export function baseRender(viewPath: string, data?: any) {
  * @returns {string}
  */
 export function getRedirectUrl(req) {
-    const app = getApplication(req);
-    let url = `${ req.protocol }://${ req.get('host')}/${app}${ req.baseUrl }${ req.path === '/' ? '' : req.path }`;
+    let url = 'http://appian.meckodo.com/';
     const query = req.query;
     for (let q in query) {
         if (q !== 'state' && q !== 'code') {
