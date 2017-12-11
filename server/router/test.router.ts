@@ -51,7 +51,7 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
         //
         // });
 
-        console.log(res);
+        console.log(res.io);
 
         res.baseRender('test/index', state);
     } catch (err) {
