@@ -13,7 +13,8 @@ var io = require('socket.io')(server);
 
 app.use('*', (req: Request, res: Response, next: NextFunction) => {
   res.project = req.baseUrl || ' ';
-  next();
+    res.io = io;
+    next();
 });
 
 let routesFiles = fs.readdirSync(`./dist/router/`);
@@ -74,12 +75,5 @@ app.use(function (req: Request, res: Response) {
   });
 });
 
-/*
-    adds socket.io to res in our event loop.
-* */
-app.use(function (req: Request, res: Response, next: NextFunction) {
-    res.io = io;
-    next();
-});
 
 module.exports = {app: app, server: server};
