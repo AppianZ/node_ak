@@ -83,7 +83,4 @@ app.use(function(req, res, next){
     next();
 });
 
-export default {
-    app: app,
-    server: server,
-};
+module.exports = {app: app, server: server};
