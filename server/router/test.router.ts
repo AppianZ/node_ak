@@ -57,43 +57,6 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
 router.get('/test', async function (req: Request, res: Response, next: NextFunction) {
 
     try {
-        /**
-         * websocket work.
-         */
-        var targetSocketArray = [];
-        var roomGroupList = [];
-
-        res.io.on('connection', function (socket) {
-            socket.on('joinToRoom', function (data) {
-                socket.join(data.roomGroupId)
-                console.log('--- joinToRoom ---- ' + data.roomGroupId);
-                roomGroupList.push(data.roomGroupId);
-            })
-
-            socket.on('addUser', function (data, func) {
-                targetSocketArray.push(data.user);
-                console.log('--- addUser ---- ' + JSON.stringify(targetSocketArray));
-                socket.in(data.roomGroupId).emit('showUser', targetSocketArray.filter(function (item) {
-                    return item.roomGroupId == data.roomGroupId;
-                }));
-                func(targetSocketArray);
-            });
-
-            socket.on('increaseCount', function (data) {
-                targetSocketArray.map(function(item) {
-                    if(item.id == data.id) {
-                        item.content = Object.assign({}, item.content, data.content);
-                    }
-                    return item;
-                })
-                console.log('--- increaseCount ---- ' + JSON.stringify(targetSocketArray));
-                socket.in(data.roomGroupId).emit('showUser', targetSocketArray.filter(function (item) {
-                    return item.roomGroupId == data.roomGroupId;
-                }));
-            });
-
-        });
-
         res.baseRender('test/test', {
             msg: 'okkkkk'
         });
