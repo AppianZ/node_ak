@@ -39,6 +39,10 @@ class TestApi {
         }, 'json');
         return token;
     }
+
+    async getSocketConnection() {
+
+    }
 }
 
 export default TestApi;
