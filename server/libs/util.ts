@@ -16,3 +16,36 @@ export function baseRender(viewPath: string, data?: any) {
     this.render(`${p}/views/${viewPath}`, {state: JSON.stringify(data)});
   }
 }
+
+
+/**
+ * 获取重定向url
+ * @param req
+ * @returns {string}
+ */
+export function getRedirectUrl(req) {
+    const app = getApplication(req);
+    let url = `${ req.protocol }://${ req.get('host')}/${app}${ req.baseUrl }${ req.path === '/' ? '' : req.path }`;
+    const query = req.query;
+    for (let q in query) {
+        if (q !== 'state' && q !== 'code') {
+            if (url.indexOf('?') < 0) {
+                url = `${ url }?${ q }=${ query[q] }`;
+            } else {
+                url = `${ url }&${ q }=${ query[q] }`;
+            }
+        }
+    }
+    return url;
+}
+
+/**
+ * 获取完整url
+ * @param req
+ * @returns {string}
+ */
+
+export function getFullUrl(req: Request) {
+    let protocol = req.headers["x-forwarded-proto"];
+    return `${ req.protocol }://${ req.get('host') }/${req.headers['x-wechat-application']}${ req.originalUrl }`;
+}
