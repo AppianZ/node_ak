@@ -8,17 +8,12 @@ const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io').listen(server);
 
-server.listen(app.get('port'), function(){
-    console.log("Express server listening on port " + app.get('port'));
-});
-
 router.get('/', async function (req: Request, res: Response, next: NextFunction) {
     const user = req.query.user || 'testuser1';
 
     const $state = new TestApi(req).getTestInit(user);
     try {
         const state:any = await $state;
-        res.baseRender('test/index', state);
 
         /**
          * websocket work.
@@ -61,6 +56,7 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
         });
         */
 
+        res.baseRender('test/index', state);
     } catch (err) {
         next(err);
     }
