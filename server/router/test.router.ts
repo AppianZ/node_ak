@@ -3,9 +3,8 @@ const router = Router();
 // import checkToken from '../middleware/check.token';
 import TestApi from '../apis/test';
 import * as util from '../libs/util';
-import express from 'express';
-const app = express();
-app.set('port', 3001);
+
+
 const server = require('http').createServer(app);
 const io = require('socket.io').listen(server);
 
@@ -20,42 +19,43 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
          * websocket work.
          */
 
-      /*  var targetSocketArray = [];
+       var targetSocketArray = [];
         var roomGroupList = [];
 
-        io.on('connection', function (socket) {
-            console.log('in connection callback--  ' , socket);
+        // res.io.on('connection', function (socket) {
+        //     console.log('in connection callback--  ' , socket);
+        //
+        //     socket.on('joinToRoom', function (data) {
+        //         socket.join(data.roomGroupId)
+        //         console.log('--- joinToRoom ---- ' + data.roomGroupId);
+        //         roomGroupList.push(data.roomGroupId);
+        //     })
+        //
+        //     socket.on('addUser', function (data, func) {
+        //         targetSocketArray.push(data.user);
+        //         console.log('--- addUser ---- ' + targetSocketArray);
+        //         socket.in(data.roomGroupId).emit('showUser', targetSocketArray.filter(function (item) {
+        //             return item.roomGroupId == data.roomGroupId;
+        //         }));
+        //         func(targetSocketArray);
+        //     });
+        //
+        //     socket.on('increaseCount', function (data) {
+        //         targetSocketArray.map(function(item) {
+        //             if(item.id == data.id) {
+        //                 item.content = Object.assign({}, item.content, data.content);
+        //             }
+        //             return item;
+        //         })
+        //         console.log('--- increaseCount ---- ' + targetSocketArray);
+        //         socket.in(data.roomGroupId).emit('showUser', targetSocketArray.filter(function (item) {
+        //             return item.roomGroupId == data.roomGroupId;
+        //         }));
+        //     });
+        //
+        // });
 
-            socket.on('joinToRoom', function (data) {
-                socket.join(data.roomGroupId)
-                console.log('--- joinToRoom ---- ' + data.roomGroupId);
-                roomGroupList.push(data.roomGroupId);
-            })
-
-            socket.on('addUser', function (data, func) {
-                targetSocketArray.push(data.user);
-                console.log('--- addUser ---- ' + targetSocketArray);
-                socket.in(data.roomGroupId).emit('showUser', targetSocketArray.filter(function (item) {
-                    return item.roomGroupId == data.roomGroupId;
-                }));
-                func(targetSocketArray);
-            });
-
-            socket.on('increaseCount', function (data) {
-                targetSocketArray.map(function(item) {
-                    if(item.id == data.id) {
-                        item.content = Object.assign({}, item.content, data.content);
-                    }
-                    return item;
-                })
-                console.log('--- increaseCount ---- ' + targetSocketArray);
-                socket.in(data.roomGroupId).emit('showUser', targetSocketArray.filter(function (item) {
-                    return item.roomGroupId == data.roomGroupId;
-                }));
-            });
-
-        });
-        */
+        res.io.emit("showUser", "users");
 
         res.baseRender('test/index', state);
     } catch (err) {

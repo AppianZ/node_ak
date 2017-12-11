@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 require('babel-polyfill');
-import app from '../app';
+var app = require('../app').app;
 var debug = require('debug')('multi_ak:server');
 var http = require('http');
 import appConfig from '../config/app.config';
@@ -26,8 +26,8 @@ log4js.configure('./server/config/log4js.json');
 /**
  * Create HTTP server.
  */
-var server = http.createServer(app);
-
+// var server = http.createServer(app);
+var server = require('../app').server;
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -37,6 +37,7 @@ console.log('~~~~~~~~ port ' + port + ' ~~~~~~~')
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
 
 /**
  * Normalize a port into a string, number, or false.

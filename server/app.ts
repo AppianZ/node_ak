@@ -8,6 +8,9 @@ const app = express();
 app.set('trust proxy', true);
 require('./config/init')(app, express);
 
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
 app.use('*', (req: Request, res: Response, next: NextFunction) => {
   res.project = req.baseUrl || ' ';
   next();
@@ -26,7 +29,7 @@ httpFiles.forEach((file) => {
 });
 
 
-app.use(async(err, req: Request, res: Response, next: NextFunction) => {
+app.use(async(err, req: Request, res: Response, next: NextFunc¡tion) => {
   const redirectUrl = getRedirectUrl(req);
   if (!err.response) { // node 挂了
     err = new Error(err);
@@ -72,4 +75,15 @@ app.use(function (req: Request, res: Response) {
   });
 });
 
-export default app;
+/*
+    adds socket.io to res in our event loop.
+* */
+app.use(function(req, res, next){
+    res.io = io;
+    next();
+});
+
+export default {
+    app: app,
+    server: server,
+};
