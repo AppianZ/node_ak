@@ -35,11 +35,11 @@ app.use(async(err, req: Request, res: Response, next: NextFunction) => {
     err = new Error(err);
     console.log(err,'-------这里是node挂了');
     // res.status(500);
-    return res.baseRender('happy/feng', {
+   /* return res.baseRender('happy/feng', {
       error: {
         stack: '系统正在升级中 [-1500]'
       }
-    });
+    });*/
   }
 
  /* if (err.response.status === 401) {
@@ -53,26 +53,26 @@ app.use(async(err, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use((err, req: Request, res: Response, next: NextFunction) => {
-  res.status(err.response.status || 500);
+  /*res.status(err.response.status || 500);
   res.baseRender('happy/feng', {
     message: req.originalUrl,
     error: {
       status: err.response.status,
       stack: errorTip[err.response.status]
     }
-  });
+  });*/
   next(err);
 });
 
 app.use(function (req: Request, res: Response) {
-  const err: any = new Error('这个页面不存在');
+ /* const err: any = new Error('这个页面不存在');
   err.status = 404;
   res.status(404);
   res.baseRender('happy/feng', {
     error: {
       stack: errorTip[err.status]
     }
-  });
+  });*/
 });
 
 
