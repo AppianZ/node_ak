@@ -33,7 +33,7 @@ app.use(async(err, req: Request, res: Response, next: NextFunction) => {
   if (!err.response) { // node 挂了
     err = new Error(err);
     console.log(err,'-------这里是node挂了');
-    res.status(500);
+    // res.status(500);
     return res.baseRender('happy/feng', {
       error: {
         stack: '系统正在升级中 [-1500]'
@@ -77,7 +77,7 @@ app.use(function (req: Request, res: Response) {
 /*
     adds socket.io to res in our event loop.
 * */
-app.use(function(req: Request, res: Response, next: NextFunction) {
+app.use(function (req: Request, res: Response, next: NextFunction) {
     res.io = io;
     next();
 });
