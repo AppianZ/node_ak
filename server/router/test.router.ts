@@ -4,10 +4,6 @@ const router = Router();
 import TestApi from '../apis/test';
 import * as util from '../libs/util';
 
-
-const server = require('http').createServer(app);
-const io = require('socket.io').listen(server);
-
 router.get('/', async function (req: Request, res: Response, next: NextFunction) {
     const user = req.query.user || 'testuser1';
 
