@@ -18,7 +18,6 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
 
 
 router.get('/test', async function (req: Request, res: Response, next: NextFunction) {
-
     try {
         res.baseRender('test/test', {
             msg: 'okkkkk'
