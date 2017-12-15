@@ -36,6 +36,7 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
             });
 
             socket.on('onTimeCount', function (data, func) {
+                console.log ('aaaaa--- ' + data.isStart);
                 socket.in(data.roomGroupId).emit('timeDecrease', {
                     isEnd: data.isStart == 2,
                     isWait: data.isStart == 0,
