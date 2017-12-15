@@ -19,6 +19,11 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
 
         res.io.on('connection', function (socket) {
             console.log('~~ connection')
+            socket.on('disconnect', function (data) {
+                socket.emit('disconnected');
+                console.log(data);
+            });
+
             socket.on('joinToRoom', function (data) {
                 socket.join(data.roomGroupId)
                 if(roomGroupList.indexOf(data.roomGroupId < 0)) {
@@ -63,6 +68,7 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
             });
 
          });
+
         res.baseRender('test/index', state);
     } catch (err) {
         next(err);
