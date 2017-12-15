@@ -18,7 +18,7 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
         var roomGroupList = [];
         var allClients = [];
 
-        res.io.on('connection', function (socket) {
+        res.io.once('connection', function (socket) {
             allClients.push(socket);
             console.log('~~ connection' + socket.id);
             socket.on('disconnect', function (data) {
