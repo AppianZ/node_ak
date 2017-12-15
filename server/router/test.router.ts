@@ -16,12 +16,16 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
          */
         var targetSocketArray = [];
         var roomGroupList = [];
+        var allClients = [];
 
         res.io.on('connection', function (socket) {
+            allClients.push(socket);
             console.log('~~ connection' + socket.id);
             socket.on('disconnect', function (data) {
                 socket.emit('disconnected');
                 console.log(data);
+                var i = allClients.indexOf(socket);
+                allClients.splice(i, 1);
             });
 
             socket.on('joinToRoom', function (data) {
