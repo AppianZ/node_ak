@@ -18,6 +18,7 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
         var roomGroupList = [];
 
         res.io.on('connection', function (socket) {
+            console.log('~~ connection')
             socket.on('joinToRoom', function (data) {
                 socket.join(data.roomGroupId)
                 if(roomGroupList.indexOf(data.roomGroupId < 0)) {
@@ -42,6 +43,7 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
                     isWait: data.isStart == 0,
                     time: data.time
                 });
+
                 func({
                     time : data.time,
                     isStart: data.isStart,
