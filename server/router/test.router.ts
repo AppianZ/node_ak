@@ -83,6 +83,9 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
 router.get('/test', async function (req: Request, res: Response, next: NextFunction) {
 
     try {
+        var targetSocketArray = [];
+        var roomGroupList = [];
+        var allClients = [];
         res.io.once('connection', function (socket) {
             allClients.push(socket);
             console.log('~~ connection' + socket.id);
