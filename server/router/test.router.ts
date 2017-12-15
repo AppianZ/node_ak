@@ -20,17 +20,32 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
         res.io.on('connection', function (socket) {
             socket.on('joinToRoom', function (data) {
                 socket.join(data.roomGroupId)
-                console.log('--- joinToRoom ---- ' + data.roomGroupId);
-                roomGroupList.push(data.roomGroupId);
+                if(roomGroupList.indexOf(data.roomGroupId < 0)) {
+                    roomGroupList.push(data.roomGroupId);
+                }
             })
 
             socket.on('addUser', function (data, func) {
                 targetSocketArray.push(data.user);
-                console.log('--- addUser ---- ' + JSON.stringify(targetSocketArray));
                 socket.in(data.roomGroupId).emit('showUser', targetSocketArray.filter(function (item) {
                     return item.roomGroupId == data.roomGroupId;
                 }));
-                func(targetSocketArray);
+                func(targetSocketArray.filter(function (item) {
+                    return item.roomGroupId == data.roomGroupId;
+                }));
+            });
+
+            socket.on('onTimeCount', function (data, func) {
+                console.log ('pppppp--- ' + data.isStart);
+                socket.in(data.roomGroupId).emit('timeDecrease', {
+                    isEnd: data.isStart == 2,
+                    isWait: data.isStart == 0,
+                    time: data.time
+                });
+                func({
+                    time : data.time,
+                    isStart: data.isStart,
+                });
             });
 
             socket.on('increaseCount', function (data) {
@@ -40,7 +55,6 @@ router.get('/', async function (req: Request, res: Response, next: NextFunction)
                     }
                     return item;
                 })
-                console.log('--- increaseCount ---- ' + JSON.stringify(targetSocketArray));
                 socket.in(data.roomGroupId).emit('showUser', targetSocketArray.filter(function (item) {
                     return item.roomGroupId == data.roomGroupId;
                 }));
