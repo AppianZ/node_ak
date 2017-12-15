@@ -41,9 +41,8 @@ var allClients = [];
 io.on('connection', function (socket) {
     allClients.push(socket);
     console.log('~~ connection' + socket.id);
-    socket.on('disconnect', function (data) {
+    socket.on('disconnect', function () {
         socket.emit('disconnected');
-        console.log(data);
         var i = allClients.indexOf(socket);
         allClients.splice(i, 1);
     });
@@ -66,7 +65,6 @@ io.on('connection', function (socket) {
     });
 
     socket.on('onTimeCount', function (data, func) {
-        console.log ('aaaaa--- ' + data.isStart);
         socket.in(data.roomGroupId).emit('timeDecrease', {
             isEnd: data.isStart == 2,
             isWait: data.isStart == 0,
@@ -92,6 +90,12 @@ io.on('connection', function (socket) {
     });
 
 });
+
+
+
+/**
+ * node error.
+ */
 
 app.use(async(err, req: Request, res: Response, next: NextFunction) => {
   if (!err.response) { // node 挂了
